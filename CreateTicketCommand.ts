@@ -4,13 +4,13 @@ import {
 	IMessageBuilder,
 	IPersistence,
 	IRead
-} from "@rocket.chat/apps-ts-definition/accessors";
-import {App} from "@rocket.chat/apps-ts-definition/App";
+} from "@rocket.chat/apps-engine/definition/accessors";
+import {App} from "@rocket.chat/apps-engine/definition/App";
 import {
 	IMessage,
 	IPreMessageSentModify
-} from "@rocket.chat/apps-ts-definition/messages";
-import {IAppInfo} from "@rocket.chat/apps-ts-definition/metadata/IAppInfo";
+} from "@rocket.chat/apps-engine/definition/messages";
+import {IAppInfo} from "@rocket.chat/apps-engine/definition/metadata/IAppInfo";
 
 export class CreateTicketApp extends App implements IPreMessageSentModify {
 	private matcher: RegExp = /([a-zA-Z|_|\-|0-9]+)\/([a-zA-Z|_|\-|.|0-9]+)#(\d+)/g;
@@ -45,13 +45,11 @@ export class CreateTicketApp extends App implements IPreMessageSentModify {
 		}
 
 		console.log(message)
-		const parts = message.split(';')
+		const parts = message.text.split(';')
 		const subject = parts[0]
 		const body = parts[1]
 
 		// TODO: Post to OTRS Endpoint
-
-		const githubLinks = message.text.match(this.matcher);
 
 		message.text = 'Successfully posted Ticket!'
 
