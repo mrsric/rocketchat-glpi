@@ -10,6 +10,6 @@
 		"homepage": "https://git.newtelco.dev/ndomino/rocketchat-createticket",
 		"support": "https://git.newtelco.dev/ndomino/rocketchat-createticket/README.md"
 	},
-	"classFile": "CreateTicketCommand.ts",
+	"classFile": "CreateTicketApp.ts",
 	"iconFile": "out-of-office.jpg"
 }
