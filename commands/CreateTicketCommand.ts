@@ -1,7 +1,7 @@
 import {
   IHttp,
-  IModify, 
-  IPersistence, 
+  IModify,
+  IPersistence,
   IRead
 } from "@rocket.chat/apps-engine/definition/accessors";
 import {
@@ -27,8 +27,8 @@ export class CreateTicketCommand implements ISlashCommand {
 
   public async executor(
     context: SlashCommandContext,
-    read: IRead, 
-    modify: IModify, 
+    read: IRead,
+    modify: IModify,
     http: IHttp,
     persis: IPersistence
   ): Promise<void> {
