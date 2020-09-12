@@ -2,6 +2,11 @@
 
 Newtelco OTRS Rocket.Chat Custom Slash Command
 
+
+### Usage
+
+Join the `#technik` Channel, and write something like the following:
+
 ```
 /create-ticket This is the SUbject ; This is the Body
 ```
@@ -11,13 +16,13 @@ Newtelco OTRS Rocket.Chat Custom Slash Command
 To Deploy a new Rocket.Chat App, you must run:
 
 ```
-rc-apps deploy --url http://localhost:3000 --username user_username --password user_password
+rc-apps deploy --url https://chat.newtelco.de --username user_username --password user_password
 ```
 
 To update an existing App, run:
 
 ```
-rc-apps deploy --url http://localhost:3000 --username user_username --password user_password --update
+rc-apps deploy --url https://chat.newtelco.de --username user_username --password user_password --update
 ```
 
 ### Notes
