@@ -1,9 +1,14 @@
 import {
   HttpStatusCode,
   IHttp,
-  ILogger,
+  ILogger
 } from "@rocket.chat/apps-engine/definition/accessors";
-
+import {
+  IUser
+} from "@rocket.chat/apps-engine/definition/users";
+import {
+  IRoom
+} from "@rocket.chat/apps-engine/definition/rooms";
 import { TicketResult } from "../helpers/TicketResult";
 
 export class TicketPoster {
@@ -17,16 +22,16 @@ export class TicketPoster {
     http: IHttp,
     subject: String,
     body: String,
-    sender: String,
-    room: String
+    sender: IUser,
+    room: IRoom
   ): Promise<Array<TicketResult>> {
     const response = await http.post(this.url, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       params: {
         UserLogin: this.user,
-        Password: this.pass,
+        Password: this.pass
       },
       data: {
         Ticket: {
@@ -38,7 +43,7 @@ export class TicketPoster {
           SLAID: "",
           StateID: "1",
           PriorityID: "3",
-          CustomerUser: "device@newtelco.de",
+          CustomerUser: "device@newtelco.de"
         },
         Article: {
           ArticleTypeID: "8",
@@ -47,9 +52,9 @@ export class TicketPoster {
           Subject: subject,
           Body: `${body} \n ${sender} - ${room}`,
           MimeType: "text/json",
-          Charset: "UTF8",
-        },
-      },
+          Charset: "UTF8"
+        }
+      }
     });
 
     logger.info("response", response);
@@ -68,6 +73,6 @@ export class TicketPoster {
 
     logger.debug("We got this many results:", response.data.data.length);
 
-    return response.data.data.map((r) => new TicketResult(r));
+    return response.data.data.map(r => new TicketResult(r));
   }
 }

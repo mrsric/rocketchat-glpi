@@ -3,7 +3,7 @@
 	"name": "NT OTRS Ticket Create",
 	"nameSlug": "create-ticket",
 	"description": "Create an OTRS Ticket out of Rocket.Chat slash command",
-	"version": "0.0.2",
+	"version": "0.1.0",
 	"requiredApiVersion": "^1.4.0",
 	"author": {
 		"name": "Nico Domino",
