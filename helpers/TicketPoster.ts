@@ -18,9 +18,6 @@ export class TicketPoster {
 		subject: String,
 		body: String
 	): Promise<Array<TicketResult>> {
-		// const ticketParts = input.split(";");
-		// const subject = ticketParts[0];
-		// const body = ticketParts[1];
 
 		const response = await http.post(this.url, {
 			headers: {
@@ -33,8 +30,8 @@ export class TicketPoster {
 			data: {
 				Ticket: {
 					Title: subject,
-					QueueID: "61",
-					LockID: "2",
+					QueueID: "2",
+					LockID: "1",
 					TypeID: "1",
 					ServiceID: "",
 					SLAID: "",

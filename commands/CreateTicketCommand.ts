@@ -35,6 +35,8 @@ export class CreateTicketCommand implements ISlashCommand {
     let tickets: Array<TicketResult>;
 
     console.log(context.getArguments());
+    this.app.getLogger().info(context)
+    this.app.getLogger().info(context.getArguments())
     const parts = context.getArguments().join(" ").split(";");
     const subject = parts[0];
     const body = parts[1];
