@@ -20,8 +20,8 @@ export class CreateTicketCommand implements ISlashCommand {
 
   constructor(private readonly app: CreateTicketApp) {
     this.command = "create-ticket";
-    this.i18nParamsExample = "";
-    this.i18nDescription = "";
+    this.i18nParamsExample = "<subject> ; <body>";
+    this.i18nDescription = "Create Ticket in Newtelco OTRS";
     this.providesPreview = false;
   }
 
@@ -32,9 +32,11 @@ export class CreateTicketCommand implements ISlashCommand {
     http: IHttp,
     persis: IPersistence
   ): Promise<void> {
-    let tickets: Array<TicketResult>;
+    let tickets: TicketResult;
 
-    console.log(context.getArguments());
+    this.app.getLogger().info("args", context.getArguments());
+    this.app.getLogger().info("room", context.getRoom());
+    this.app.getLogger().info("user", context.getSender());
     const room = context.getRoom();
     const sender = context.getSender();
     const parts = context.getArguments().join(" ").split(";");
@@ -44,7 +46,14 @@ export class CreateTicketCommand implements ISlashCommand {
     try {
       tickets = await this.app
         .postTicketPoster()
-        .postTicket(this.app.getLogger(), http, subject, body, sender, room);
+        .postTicket(
+          this.app.getLogger(),
+          http,
+          subject,
+          body,
+          `${sender.name} <${sender.emails[0].address}>`,
+          room.displayName
+        );
       this.app.getLogger().info(tickets);
     } catch (e) {
       this.app.getLogger().error("Failed on something:", e);

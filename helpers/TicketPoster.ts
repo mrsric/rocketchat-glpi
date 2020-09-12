@@ -1,15 +1,17 @@
 import {
   HttpStatusCode,
   IHttp,
-  ILogger
+  ILogger,
 } from "@rocket.chat/apps-engine/definition/accessors";
-import {
-  IUser
-} from "@rocket.chat/apps-engine/definition/users";
-import {
-  IRoom
-} from "@rocket.chat/apps-engine/definition/rooms";
+import { IUser } from "@rocket.chat/apps-engine/definition/users";
+import { IRoom } from "@rocket.chat/apps-engine/definition/rooms";
 import { TicketResult } from "../helpers/TicketResult";
+
+interface IResponse {
+  ArticleID: number;
+  TicketID: string;
+  TickerNumber: string;
+}
 
 export class TicketPoster {
   private readonly url =
@@ -22,16 +24,16 @@ export class TicketPoster {
     http: IHttp,
     subject: String,
     body: String,
-    sender: IUser,
-    room: IRoom
-  ): Promise<Array<TicketResult>> {
+    sender: String,
+    room: String | undefined
+  ): Promise<TicketResult> {
     const response = await http.post(this.url, {
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       params: {
         UserLogin: this.user,
-        Password: this.pass
+        Password: this.pass,
       },
       data: {
         Ticket: {
@@ -43,36 +45,28 @@ export class TicketPoster {
           SLAID: "",
           StateID: "1",
           PriorityID: "3",
-          CustomerUser: "device@newtelco.de"
+          CustomerUser: "device@newtelco.de",
         },
         Article: {
           ArticleTypeID: "8",
           SenderTypeID: "1",
           From: sender,
           Subject: subject,
-          Body: `${body} \n ${sender} - ${room}`,
+          Body: `${body} \n\n${sender} - ${room}`,
           MimeType: "text/json",
-          Charset: "UTF8"
-        }
-      }
+          Charset: "UTF8",
+        },
+      },
     });
 
     logger.info("response", response);
 
-    if (
-      response.statusCode !== HttpStatusCode.OK ||
-      !response.data ||
-      !response.data.data
-    ) {
+    if (response.statusCode !== HttpStatusCode.OK || !response.data.TicketID) {
       logger.debug("Did not get a valid response", response);
       throw new Error("Unable to post ticket.");
-    } else if (!Array.isArray(response.data.data)) {
-      logger.debug("The response data is not an Array:", response.data.data);
-      throw new Error("Data is in a format we don't understand.");
     }
 
-    logger.debug("We got this many results:", response.data.data.length);
-
-    return response.data.data.map(r => new TicketResult(r));
+    const newTicket = new TicketResult(response.data);
+    return newTicket;
   }
 }
