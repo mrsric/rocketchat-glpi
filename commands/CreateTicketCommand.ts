@@ -2,15 +2,15 @@ import {
   IHttp,
   IModify,
   IPersistence,
-  IRead
+  IRead,
 } from "@rocket.chat/apps-engine/definition/accessors";
 import {
   ISlashCommand,
-  SlashCommandContext
+  SlashCommandContext,
 } from "@rocket.chat/apps-engine/definition/slashcommands";
 
-import {CreateTicketApp} from "../CreateTicketApp";
-import {TicketResult} from "../helpers/TicketResult";
+import { CreateTicketApp } from "../CreateTicketApp";
+import { TicketResult } from "../helpers/TicketResult";
 
 export class CreateTicketCommand implements ISlashCommand {
   public command: string;
@@ -35,8 +35,8 @@ export class CreateTicketCommand implements ISlashCommand {
     let tickets: Array<TicketResult>;
 
     console.log(context.getArguments());
-    this.app.getLogger().info(context)
-    this.app.getLogger().info(context.getArguments())
+    const room = context.getRoom();
+    const sender = context.getSender();
     const parts = context.getArguments().join(" ").split(";");
     const subject = parts[0];
     const body = parts[1];
@@ -44,8 +44,8 @@ export class CreateTicketCommand implements ISlashCommand {
     try {
       tickets = await this.app
         .postTicketPoster()
-        .postTicket(this.app.getLogger(), http, subject, body);
-      this.app.getLogger().info(tickets)
+        .postTicket(this.app.getLogger(), http, subject, body, sender, room);
+      this.app.getLogger().info(tickets);
     } catch (e) {
       this.app.getLogger().error("Failed on something:", e);
     }
