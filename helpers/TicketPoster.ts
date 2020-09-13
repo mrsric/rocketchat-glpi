@@ -66,7 +66,8 @@ export class TicketPoster {
       throw new Error("Unable to post ticket.");
     }
 
-    const newTicket = new TicketResult(response.data);
-    return newTicket;
+    // const newTicket = new TicketResult(response.data);
+    // return newTicket;
+    return response.data;
   }
 }

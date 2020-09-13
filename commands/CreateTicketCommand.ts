@@ -34,9 +34,9 @@ export class CreateTicketCommand implements ISlashCommand {
   ): Promise<void> {
     let tickets: TicketResult;
 
-    this.app.getLogger().info("args", context.getArguments());
-    this.app.getLogger().info("room", context.getRoom());
-    this.app.getLogger().info("user", context.getSender());
+    // this.app.getLogger().info("args", context.getArguments());
+    // this.app.getLogger().info("room", context.getRoom());
+    // this.app.getLogger().info("user", context.getSender());
     const room = context.getRoom();
     const sender = context.getSender();
     const parts = context.getArguments().join(" ").split(";");
@@ -54,9 +54,29 @@ export class CreateTicketCommand implements ISlashCommand {
           `${sender.name} <${sender.emails[0].address}>`,
           room.displayName
         );
-      this.app.getLogger().info(tickets);
+      this.app.getLogger().info("ticket", tickets);
+      const msg = modify
+        .getNotifier()
+        .getMessageBuilder()
+        .setRoom(context.getRoom())
+        .setUsernameAlias("OTRS Bot")
+        .setEmojiAvatar(":memo:")
+        .setText(
+          `:newspaper: OTRS Ticket **#${tickets.TicketNumber}** posted successfully.\n\n:link: [Open in OTRS](https://support.newtelco.de/otrs/index.pl?Action=AgentTicketZoom;TicketID=${tickets.TicketID})`
+        )
+        .getMessage();
+      await modify.getNotifier().notifyUser(context.getSender(), msg);
     } catch (e) {
       this.app.getLogger().error("Failed on something:", e);
+      const msg = modify
+        .getNotifier()
+        .getMessageBuilder()
+        .setRoom(context.getRoom())
+        .setUsernameAlias("OTRS Bot")
+        .setEmojiAvatar(":ghost:")
+        .setText("Error posting OTRS Ticket")
+        .getMessage();
+      await modify.getNotifier().notifyUser(context.getSender(), msg);
     }
   }
 }

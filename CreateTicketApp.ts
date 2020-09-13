@@ -3,9 +3,8 @@ import {
   IConfigurationExtend,
 } from "@rocket.chat/apps-engine/definition/accessors";
 import { App } from "@rocket.chat/apps-engine/definition/App";
-import { IAppInfo } from "@rocket.chat/apps-engine/definition/metadata/IAppInfo";
-
 import { CreateTicketCommand } from "./commands/CreateTicketCommand";
+import { IAppInfo } from "@rocket.chat/apps-engine/definition/metadata";
 import { TicketPoster } from "./helpers/TicketPoster";
 
 export class CreateTicketApp extends App {
