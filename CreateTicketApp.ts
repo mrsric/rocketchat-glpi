@@ -32,21 +32,21 @@ export class CreateTicketApp extends App {
     environmentRead: IEnvironmentRead,
     configModify: IConfigurationModify
   ): Promise<boolean> {
-    const otrsUsername = await environmentRead
-      .getSettings()
-      .getValueById(this.otrsUsername)
-    const otrsPassword = await environmentRead
-      .getSettings()
-      .getValueById(this.otrsPassword)
-    const otrsUrl = await environmentRead
-      .getSettings()
-      .getValueById(this.otrsUrl)
-    const otrsTicketUrl = await environmentRead
-      .getSettings()
-      .getValueById(this.otrsTicketUrl)
-    if (!otrsUsername && !otrsPassword && !otrsUrl && !otrsTicketUrl) {
-      await configModify.slashCommands.disableSlashCommand('create-ticket')
-    }
+    // const otrsUsername = await environmentRead
+    //   .getSettings()
+    //   .getValueById(this.otrsUsername)
+    // const otrsPassword = await environmentRead
+    //   .getSettings()
+    //   .getValueById(this.otrsPassword)
+    // const otrsUrl = await environmentRead
+    //   .getSettings()
+    //   .getValueById(this.otrsUrl)
+    // const otrsTicketUrl = await environmentRead
+    //   .getSettings()
+    //   .getValueById(this.otrsTicketUrl)
+    // if (!otrsUsername && !otrsPassword && !otrsUrl && !otrsTicketUrl) {
+    //   await configModify.slashCommands.disableSlashCommand('create-ticket')
+    // }
 
     return true
   }

@@ -1,14 +1,18 @@
 {
 	"id": "09a2b0d8-94d0-433d-a53e-3961a3bb0200",
-	"name": "NT OTRS Ticket Create",
+	"name": "OTRS Ticket Create",
 	"nameSlug": "create-ticket",
 	"description": "Create an OTRS Ticket out of Rocket.Chat slash command",
 	"version": "0.9.1",
 	"requiredApiVersion": "^1.4.0",
+	"categories": [
+		"Social",
+		"Project Management"
+	],
 	"author": {
 		"name": "Nico Domino",
-		"homepage": "https://git.newtelco.dev/ndomino/rocketchat-createticket",
-		"support": "https://git.newtelco.dev/ndomino/rocketchat-createticket/README.md"
+		"homepage": "https://github.com/ndom91/rocketchat-otrs",
+		"support": "https://github.com/ndom91/rocketchat-otrs/issues"
 	},
 	"classFile": "CreateTicketApp.ts",
 	"iconFile": "otrs.png"

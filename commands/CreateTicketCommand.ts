@@ -35,10 +35,6 @@ export class CreateTicketCommand implements ISlashCommand {
   ): Promise<void> {
     let tickets: TicketResult
 
-    this.app
-      .getLogger()
-      .debug('settings', read.getEnvironmentReader().getSettings())
-
     // DEBUG
     // this.app.getLogger().info("args", context.getArguments());
     // this.app.getLogger().info("room", context.getRoom());
