@@ -14,24 +14,24 @@ interface IResponse {
 }
 
 export class TicketPoster {
-  private readonly url =
-    'https://support.newtelco.de/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnectorSCRIPTS/Ticket'
-
   public async postTicket(
     logger: ILogger,
     http: IHttp,
     subject: String,
     body: String,
     sender: String,
-    room: String | undefined
+    room: String | undefined,
+    otrsUser: string,
+    otrsPass: string,
+    otrsWebServiceUrl: string
   ): Promise<TicketResult> {
-    const response = await http.post(this.url, {
+    const response = await http.post(otrsWebServiceUrl, {
       headers: {
         'Content-Type': 'application/json',
       },
       params: {
-        UserLogin: 'scripts',
-        Password: 'scripts99',
+        UserLogin: otrsUser,
+        Password: otrsPass,
       },
       data: {
         Ticket: {

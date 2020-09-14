@@ -59,7 +59,7 @@ export class CreateTicketApp extends App {
     configuration: IConfigurationExtend
   ): Promise<void> {
     await configuration.settings.provideSetting({
-      id: 'username',
+      id: 'otrsUsername',
       type: SettingType.STRING,
       packageValue: '',
       required: true,
@@ -69,7 +69,7 @@ export class CreateTicketApp extends App {
     })
 
     await configuration.settings.provideSetting({
-      id: 'password',
+      id: 'otrsPassword',
       type: SettingType.STRING,
       packageValue: '',
       required: true,

@@ -35,6 +35,10 @@ export class CreateTicketCommand implements ISlashCommand {
   ): Promise<void> {
     let tickets: TicketResult
 
+    this.app
+      .getLogger()
+      .debug('settings', read.getEnvironmentReader().getSettings())
+
     // DEBUG
     // this.app.getLogger().info("args", context.getArguments());
     // this.app.getLogger().info("room", context.getRoom());
@@ -44,10 +48,22 @@ export class CreateTicketCommand implements ISlashCommand {
     const parts = context.getArguments().join(' ').split('|')
     const subject = parts[0]
     const body = parts[1]
-
-    this.app
-      .getLogger()
-      .info('settings', read.getEnvironmentReader().getSettings())
+    const ticketUrl = await read
+      .getEnvironmentReader()
+      .getSettings()
+      .getValueById('ticketUrl')
+    const otrsUser = await read
+      .getEnvironmentReader()
+      .getSettings()
+      .getValueById('otrsUsername')
+    const otrsPassword = await read
+      .getEnvironmentReader()
+      .getSettings()
+      .getValueById('otrsPassword')
+    const otrsWebserviceUrl = await read
+      .getEnvironmentReader()
+      .getSettings()
+      .getValueById('webServiceUrl')
 
     try {
       tickets = await this.app
@@ -58,7 +74,10 @@ export class CreateTicketCommand implements ISlashCommand {
           subject,
           body,
           `${sender.name} <${sender.emails[0].address}>`,
-          room.displayName
+          room.displayName,
+          otrsUser,
+          otrsPassword,
+          otrsWebserviceUrl
         )
 
       // DEBUG
@@ -70,12 +89,12 @@ export class CreateTicketCommand implements ISlashCommand {
         .setUsernameAlias('OTRS Bot')
         .setEmojiAvatar(':memo:')
         .setText(
-          `:newspaper: OTRS Ticket **#${tickets.TicketNumber}** posted successfully.\n\n:link: [Open in OTRS](https://support.newtelco.de/ticket=${tickets.TicketID})`
+          `:newspaper: OTRS Ticket **#${tickets.TicketNumber}** posted successfully.\n\n:link: [Open in OTRS](${ticketUrl}${tickets.TicketID})`
         )
         .getMessage()
       await modify.getNotifier().notifyUser(context.getSender(), msg)
     } catch (e) {
-      this.app.getLogger().error('Failed on something:', e)
+      this.app.getLogger().error('Posting Ticket Failed', e)
       const msg = modify
         .getNotifier()
         .getMessageBuilder()
