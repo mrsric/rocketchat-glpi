@@ -20,6 +20,7 @@ export class CreateTicketApp extends App {
   private readonly otrsUsername: string
   private readonly otrsPassword: string
   private readonly otrsUrl: string
+  private readonly otrsTicketUrl: string
 
   constructor(info: IAppInfo, logger: ILogger) {
     super(info, logger)
@@ -40,7 +41,10 @@ export class CreateTicketApp extends App {
     const otrsUrl = await environmentRead
       .getSettings()
       .getValueById(this.otrsUrl)
-    if (!otrsUsername && !otrsPassword && !otrsUrl) {
+    const otrsTicketUrl = await environmentRead
+      .getSettings()
+      .getValueById(this.otrsTicketUrl)
+    if (!otrsUsername && !otrsPassword && !otrsUrl && !otrsTicketUrl) {
       await configModify.slashCommands.disableSlashCommand('create-ticket')
     }
 
@@ -55,7 +59,7 @@ export class CreateTicketApp extends App {
     configuration: IConfigurationExtend
   ): Promise<void> {
     await configuration.settings.provideSetting({
-      id: this.otrsUsername,
+      id: 'username',
       type: SettingType.STRING,
       packageValue: '',
       required: true,
@@ -65,7 +69,7 @@ export class CreateTicketApp extends App {
     })
 
     await configuration.settings.provideSetting({
-      id: this.otrsPassword,
+      id: 'password',
       type: SettingType.STRING,
       packageValue: '',
       required: true,
@@ -75,14 +79,25 @@ export class CreateTicketApp extends App {
     })
 
     await configuration.settings.provideSetting({
-      id: this.otrsUrl,
+      id: 'webServiceUrl',
+      type: SettingType.STRING,
+      packageValue: 'https://',
+      required: true,
+      public: false,
+      i18nLabel: 'OTRS Web Service Url',
+      i18nDescription:
+        'For TicketCreate Endpoint, for example - otrs.company.com/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnectorSCRIPTS/Ticket',
+    })
+
+    await configuration.settings.provideSetting({
+      id: 'ticketUrl',
       type: SettingType.STRING,
       packageValue: 'https://',
       required: true,
       public: false,
       i18nLabel: 'OTRS Ticket Url Prefix',
       i18nDescription:
-        'For example https://otrs.company.tld/otrs/index.pl?Action=AgentTicketZoom;TicketID=',
+        'For example - otrs.company.tld/otrs/index.pl?Action=AgentTicketZoom;TicketID=',
     })
 
     await configuration.slashCommands.provideSlashCommand(
