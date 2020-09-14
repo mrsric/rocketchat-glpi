@@ -3,7 +3,7 @@
 	"name": "OTRS Ticket Create",
 	"nameSlug": "create-ticket",
 	"description": "Create an OTRS Ticket out of Rocket.Chat slash command",
-	"version": "0.9.1",
+	"version": "0.9.2",
 	"requiredApiVersion": "^1.4.0",
 	"categories": [
 		"Social",

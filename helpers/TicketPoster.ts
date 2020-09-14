@@ -3,15 +3,7 @@ import {
   IHttp,
   ILogger,
 } from '@rocket.chat/apps-engine/definition/accessors'
-import { IUser } from '@rocket.chat/apps-engine/definition/users'
-import { IRoom } from '@rocket.chat/apps-engine/definition/rooms'
 import { TicketResult } from '../helpers/TicketResult'
-
-interface IResponse {
-  ArticleID: number
-  TicketID: string
-  TickerNumber: string
-}
 
 export class TicketPoster {
   public async postTicket(

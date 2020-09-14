@@ -1,26 +1,15 @@
 import {
-  IRead,
-  IHttp,
   ILogger,
   IConfigurationExtend,
-  IEnvironmentRead,
-  IConfigurationModify,
 } from '@rocket.chat/apps-engine/definition/accessors'
 import { App } from '@rocket.chat/apps-engine/definition/App'
 import { CreateTicketCommand } from './commands/CreateTicketCommand'
 import { IAppInfo } from '@rocket.chat/apps-engine/definition/metadata'
 import { TicketPoster } from './helpers/TicketPoster'
-import {
-  ISetting,
-  SettingType,
-} from '@rocket.chat/apps-engine/definition/settings'
+import { SettingType } from '@rocket.chat/apps-engine/definition/settings'
 
 export class CreateTicketApp extends App {
   private ticketPoster: TicketPoster
-  private readonly otrsUsername: string
-  private readonly otrsPassword: string
-  private readonly otrsUrl: string
-  private readonly otrsTicketUrl: string
 
   constructor(info: IAppInfo, logger: ILogger) {
     super(info, logger)
@@ -28,26 +17,7 @@ export class CreateTicketApp extends App {
     this.ticketPoster = new TicketPoster()
   }
 
-  public async onEnable(
-    environmentRead: IEnvironmentRead,
-    configModify: IConfigurationModify
-  ): Promise<boolean> {
-    // const otrsUsername = await environmentRead
-    //   .getSettings()
-    //   .getValueById(this.otrsUsername)
-    // const otrsPassword = await environmentRead
-    //   .getSettings()
-    //   .getValueById(this.otrsPassword)
-    // const otrsUrl = await environmentRead
-    //   .getSettings()
-    //   .getValueById(this.otrsUrl)
-    // const otrsTicketUrl = await environmentRead
-    //   .getSettings()
-    //   .getValueById(this.otrsTicketUrl)
-    // if (!otrsUsername && !otrsPassword && !otrsUrl && !otrsTicketUrl) {
-    //   await configModify.slashCommands.disableSlashCommand('create-ticket')
-    // }
-
+  public async onEnable(): Promise<boolean> {
     return true
   }
 

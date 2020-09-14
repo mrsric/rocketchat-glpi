@@ -3,7 +3,6 @@ import {
   IModify,
   IPersistence,
   IRead,
-  ISettingRead,
 } from '@rocket.chat/apps-engine/definition/accessors'
 import {
   ISlashCommand,
