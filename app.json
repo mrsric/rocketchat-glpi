@@ -1,15 +1,19 @@
 {
-	"id": "09a2b0d8-94d0-433d-a53e-3961a3bb0200",
-	"name": "NT OTRS Ticket Create",
-	"nameSlug": "create-ticket",
-	"description": "Create an OTRS Ticket out of Rocket.Chat slash command",
-	"version": "0.9.1",
-	"requiredApiVersion": "^1.4.0",
-	"author": {
-		"name": "Nico Domino",
-		"homepage": "https://git.newtelco.dev/ndomino/rocketchat-createticket",
-		"support": "https://git.newtelco.dev/ndomino/rocketchat-createticket/README.md"
-	},
-	"classFile": "CreateTicketApp.ts",
-	"iconFile": "otrs.png"
+    "id": "45419f06-2e25-4936-8f8a-da128524dee1",
+    "name": "GLPI Abertura Chamado",
+    "nameSlug": "glpi",
+    "description": "Abertura de chamados no GLPI| Baseado no APP OTRS (Nico Domino) - https://github.com/ndom91/rocketchat-otrs",
+    "version": "0.0.1",
+    "requiredApiVersion": "^1.31.0",
+    "categories": [
+        "Ticket"
+    ],
+    "author": {
+        "name": "Marcos Ricardo de Souza",
+        "homepage": "https://github.com/mrsric/rocketchat-glpi",
+        "support": "https://github.com/mrsric/rocketchat-glpi"
+    },
+    "classFile": "GLPITicketApp.ts",
+    "iconFile": "glpi.png",
+    "implements": []
 }
