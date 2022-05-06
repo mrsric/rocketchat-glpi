@@ -1,11 +1,11 @@
 export class TicketResult {
-  public TicketNumber: string
-  public TicketID: string
+  public TicketMessage: string;
+  public TicketID: string;
 
   constructor(data?: any) {
     if (data) {
-      this.TicketNumber = data.TicketNumber as string
-      this.TicketID = data.TicketID as string
+      this.TicketMessage = data.message as string;
+      this.TicketID = data.id as string;
     }
   }
 }

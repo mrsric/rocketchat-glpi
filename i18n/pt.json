@@ -1,0 +1,4 @@
+{
+    "glpi-command-example": "<assunto> | <descrição>  (Opcional: Assunto e Descrição)",
+    "glpi-command-description": "Abrir chamado no GLPI"
+}

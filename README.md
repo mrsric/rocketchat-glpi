@@ -1,16 +1,19 @@
-# 🚀 Rocket.Chat OTRS CreateTicket App
+# Rocket.Chat GLPI CreateTicket App
 
-OTRS Rocket.Chat Custom Slash Command for creating Tickets
+GLPI Rocket.Chat Custom Slash Command for creating Tickets
 
-### 💼 Usage
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+
+
+## Usage
 
 Make sure the App has been installed, and then simply enter the following in any channel:
 
 ```
-/create-ticket This is the Subject | This is the Body
+/glpi-novo <subject> | <body>  (Optional: Subject and Body)
 ```
 
-### 🎉 Deploying
+## Deploying
 
 To Deploy a new Rocket.Chat App, you must first enable developer mode in order to upload custom Apps. This one is not in the Marketplace yet, unfortunately. This can be found under _Administration_ -> _General_ -> _Apps_.
 
@@ -22,15 +25,15 @@ npm install -g @rocket.chat/apps-cli
 
 Then, clone this repo and install the dependencies
 
-```
-git clone https://github.com/ndom91/rocketchat-otrs
-cd rocketchat-otrs
+```sh
+git clone https://github.com/mrsric/rocketchat-glpi.git
+cd rocketchat-glpi
 npm install
 ```
 
 Finally, you can use the following commands to install / update the app:
 
-```
+```sh
 rc-apps deploy --url https://chat.company.com --username user_username --password user_password
 rc-apps deploy --url https://chat.company.com --username user_username --password user_password --update
 ```
@@ -39,10 +42,14 @@ Then make sure to go back into _Administration_ -> _Apps_ and set the required s
 
 They include:
 
-- OTRS User for Authenticating to the API
-- OTRS Password
-- OTRS Webservice Url - the location of your TicketCreate endpoint
-- OTRS TicketID Url prefix - where it will append the newly created TicketID in the return message to create a link to the new ticket.
+- GLPI: URL do servideo GLPI, por exemplo - servidorglpi
+- GLPI: Token Usuário - Token para atenticação da API no GLPI
+- GLPI: Token Aplicação - Token de aplicação no GLPI
+- GLPI: Fuso Horário - Fuso Horário para trancrição do Chat. Ex America/Sao_Paulo. (Senão informado será utilizado o UTC)
+
+## References
+
+> Baseado no APP OTRS (Nico Domino) - https://github.com/ndom91/rocketchat-otrs
 
 ### 📝 Notes
 

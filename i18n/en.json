@@ -1,0 +1,5 @@
+{
+    "glpi-command-example": "<subject> | <body>  (Optional: Subject and Body)",
+    "glpi-command-description": "Open ticket on GLPI"
+}
+
